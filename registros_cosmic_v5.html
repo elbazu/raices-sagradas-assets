@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Registros Akáshicos y Sanación</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,300;1,9..144,400;1,9..144,700&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #d6f0f2;
+    padding: 16px 16px;
+    font-family: 'Nunito', Arial, sans-serif;
+  }
+
+  .shell {
+    max-width: 580px;
+    margin: 0 auto;
+  }
+
+  /* ── COORDINATE HEADER ── */
+  .coord-bar {
+    display: table;
+    width: 100%;
+    margin-bottom: 6px;
+  }
+  .coord-l, .coord-r {
+    display: table-cell;
+    font-size: 9px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: #3d8090;
+    font-weight: 600;
+    vertical-align: middle;
+  }
+  .coord-r { text-align: right; }
+  .coord-mid {
+    display: table-cell;
+    width: 60%;
+    text-align: center;
+    vertical-align: middle;
+  }
+  .coord-line {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #007a8a, #6b2fa0, transparent);
+  }
+
+  /* ── MAIN CARD ── */
+  .card {
+    background: #e8f7f9;
+    border: 1px solid #9acfd6;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    overflow: hidden;
+  }
+  .hero img {
+    width: 100%;
+    display: block;
+  }
+  /* dimensional rift overlay at bottom of hero */
+  .hero-fade {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 80px;
+    background: linear-gradient(to bottom, transparent, #e8f7f9);
+  }
+
+  /* ── AURORA RIFT — the signature element ── */
+  .rift {
+    padding: 0 0 0;
+    position: relative;
+    height: 48px;
+    overflow: hidden;
+    background: #e8f7f9;
+  }
+  .rift svg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 110%;
+  }
+
+  /* ── TRANSMISSION LABEL ── */
+  .tx-label {
+    text-align: center;
+    padding: 28px 40px 0;
+  }
+  .tx-label span {
+    display: inline-block;
+    font-size: 9px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #007a8a;
+    font-weight: 500;
+    border: 1px solid rgba(0,122,138,0.6);
+    padding: 5px 16px;
+    border-radius: 2px;
+  }
+
+  /* ── INTRO ── */
+  .intro {
+    padding: 16px 40px 20px;
+    border-bottom: 1px solid #b8e2e8;
+  }
+  .saludo {
+    font-family: 'Fraunces', serif;
+    font-size: 28px;
+    font-weight: 300;
+    font-style: italic;
+    color: #0d2d35;
+    margin: 0 0 12px;
+    line-height: 1.2;
+  }
+  .body-p {
+    font-size: 14px;
+    line-height: 1.9;
+    color: #2a5f6e;
+    margin: 0 0 14px;
+    font-weight: 300;
+  }
+  .body-p strong { color: #007a8a; font-weight: 500; }
+
+  /* ── QUOTE ── */
+  .quote-sec {
+    padding: 0 40px 20px;
+    border-bottom: 1px solid #b8e2e8;
+  }
+  .quote-inner {
+    position: relative;
+    padding: 14px 0 14px 24px;
+  }
+  .quote-inner::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 2px;
+    background: linear-gradient(180deg, #007a8a, #6b2fa0);
+    border-radius: 2px;
+  }
+  .quote-inner p {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 300;
+    font-style: italic;
+    color: #1a4a58;
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  /* ── PARA QUIÉN ── */
+  .paraquien {
+    padding: 36px 48px;
+    border-bottom: 1px solid #b8e2e8;
+    position: relative;
+  }
+  .paraquien::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(0,122,138,0.6), transparent);
+  }
+  .eyebrow {
+    font-size: 9px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #007a8a;
+    font-weight: 500;
+    display: block;
+    margin-bottom: 10px;
+  }
+  .section-title {
+    font-family: 'Fraunces', serif;
+    font-size: 30px;
+    font-weight: 700;
+    color: #0d2d35;
+    line-height: 1.15;
+    margin-bottom: 14px;
+  }
+  .months-title {
+    font-family: 'Nunito', Arial, sans-serif;
+    font-size: 9px;
+    font-weight: 500;
+    color: #007a8a;
+    line-height: 1.15;
+    margin-bottom: 20px;
+    text-align: center;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    display: block;
+  }
+  .pq-item {
+    display: table;
+    width: 100%;
+    padding: 12px 0;
+    border-bottom: 1px solid #b8e2e8;
+  }
+  .pq-item:last-child { border-bottom: none; }
+  .pq-dot {
+    display: table-cell;
+    width: 28px;
+    vertical-align: top;
+    padding-top: 3px;
+  }
+  .pq-dot span {
+    display: block;
+    width: 6px; height: 6px;
+    background: #6b2fa0;
+    border-radius: 50%;
+    box-shadow: 0 0 6px rgba(107,47,160,0.9);
+  }
+  .pq-text {
+    display: table-cell;
+    font-size: 13px;
+    color: #2a5f6e;
+    line-height: 1.7;
+    font-weight: 300;
+  }
+  .pq-text strong { color: #1a4a58; font-weight: 500; }
+
+  /* ── MONTH RECORDS ── */
+  .months {
+    padding: 20px 40px;
+    border-bottom: 1px solid #b8e2e8;
+    position: relative;
+  }
+  .months::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(107,47,160,0.4), transparent);
+  }
+  .month-record {
+    position: relative;
+    width: 100%;
+    height: 180px;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 12px;
+  }
+  .month-record:last-child { margin-bottom: 0; }
+  .month-record img {
+    position: absolute;
+    inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+  }
+  .month-record::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(8,30,40,0.10) 0%, rgba(8,30,40,0.72) 55%, rgba(8,30,40,0.92) 100%);
+  }
+  .month-text-col {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 16px 20px;
+    z-index: 2;
+    text-align: center;
+  }
+  .month-num {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #7adce8;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 5px;
+  }
+  .month-title {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.25;
+    margin-bottom: 5px;
+  }
+  .month-desc {
+    font-size: 13px;
+    color: rgba(255,255,255,0.80);
+    line-height: 1.55;
+    font-weight: 300;
+  }
+
+  /* ── DETAILS ── */
+  .details {
+    padding: 20px 40px;
+    border-bottom: 1px solid #b8e2e8;
+    position: relative;
+  }
+  .details::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,184,48,0.3), transparent);
+  }
+  .detail-grid {
+    display: table;
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 6px 6px;
+    margin-top: 4px;
+  }
+  .detail-row { display: table-row; }
+  .detail-cell {
+    display: inline-block;
+    width: 48%;
+    vertical-align: top;
+    margin: 0 1% 8px 0;
+    padding: 14px 18px;
+    background: #cdeef4;
+    border: 1px solid #9acfd6;
+    border-radius: 4px;
+    border-left: 2px solid #c45a00;
+  }
+  .dc-label {
+    font-size: 8px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #c45a00;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 5px;
+  }
+  .dc-val {
+    font-size: 13px;
+    color: #1a4a58;
+    line-height: 1.4;
+    font-weight: 400;
+  }
+
+  /* ── INVESTMENT ── */
+  .invest {
+    padding: 20px 40px;
+    border-bottom: 1px solid #b8e2e8;
+    position: relative;
+  }
+  .invest::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(0,122,138,0.4), transparent);
+  }
+  .invest .eyebrow { text-align: center; }
+  .details .eyebrow { text-align: center; }
+  .inv-option {
+    padding: 12px 18px;
+    margin-bottom: 8px;
+    border: 1px solid #9acfd6;
+    border-radius: 4px;
+    background: #cdeef4;
+  }
+  .inv-option.featured {
+    border-color: rgba(0,122,138,0.5);
+    background: #cdeef4;
+    position: relative;
+    overflow: hidden;
+  }
+  .inv-option.featured::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #007a8a, #6b2fa0);
+  }
+  .inv-tag {
+    font-size: 8px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #2a5f6e;
+    font-weight: 500;
+    display: block;
+    margin-bottom: 8px;
+  }
+  .inv-option.featured .inv-tag { color: #007a8a; }
+  .inv-price {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: #0d2d35;
+    line-height: 1.15;
+    margin-bottom: 4px;
+  }
+  .inv-note {
+    font-size: 12px;
+    color: #3d8090;
+    font-weight: 300;
+  }
+  .inv-option.featured .inv-note { color: #7a9f9a; }
+  .discount-pill {
+    display: inline-block;
+    background: linear-gradient(135deg, #007a8a, #6b2fa0);
+    color: #e8f7f9;
+    font-size: 8px;
+    letter-spacing: 2px;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 2px;
+    margin-bottom: 10px;
+  }
+  .payment-methods {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 11px;
+    color: #3d8090;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 500;
+    line-height: 1.8;
+  }
+
+  /* ── CTA ── */
+  .cta {
+    padding: 28px 40px 28px;
+    text-align: center;
+    position: relative;
+    background: #e8f7f9;
+  }
+  .cta::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #007a8a, #6b2fa0, transparent);
+  }
+  /* Glow orbs behind CTA */
+  .cta-glow-1 {
+    position: absolute;
+    top: 20px; left: 20%;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(0,122,138,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .cta-glow-2 {
+    position: absolute;
+    bottom: 20px; right: 15%;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(107,47,160,0.10) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .cta-eyebrow {
+    font-size: 9px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: #6b2fa0;
+    font-weight: 500;
+    display: block;
+    margin-bottom: 8px;
+    position: relative; z-index: 1;
+  }
+  .cta-heading {
+    font-family: 'Fraunces', serif;
+    font-size: 40px;
+    font-weight: 900;
+    color: #0d2d35;
+    line-height: 1.05;
+    margin-bottom: 4px;
+    position: relative; z-index: 1;
+  }
+  .cta-heading em {
+    font-style: italic;
+    font-weight: 300;
+    color: #007a8a;
+    display: block;
+    font-size: 32px;
+  }
+  .cta-sub {
+    font-size: 14px;
+    color: #1a4a58;
+    line-height: 1.8;
+    margin: 10px 0 20px;
+    position: relative; z-index: 1;
+  }
+  .cta-sub strong { color: #007a8a; font-weight: 700; }
+  .cta-btn {
+    display: inline-block;
+    background: #007a8a;
+    color: #e8f7f9;
+    font-family: 'Nunito', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 15px 44px;
+    text-decoration: none;
+    border-radius: 3px;
+    border: 1px solid #007a8a;
+    position: relative; z-index: 1;
+  }
+  .cta-wa {
+    display: block;
+    font-size: 12px;
+    color: #2a5f6e;
+    margin-top: 16px;
+    position: relative; z-index: 1;
+    font-weight: 300;
+  }
+  .cta-wa a { color: #6b2fa0; text-decoration: none; font-weight: 500; }
+
+  /* ── FOOTER ── */
+  .footer {
+    background: #d6f0f2;
+    padding: 14px 40px 18px;
+    text-align: center;
+    border-top: 1px solid #b8e2e8;
+  }
+  .foot-site { font-size: 11px; color: #5a9aaa; margin: 10px 0 14px; letter-spacing: 1px; }
+  .foot-site a { color: #3d8090; text-decoration: none; }
+  .foot-note { font-size: 10px; color: #3d7a88; line-height: 1.8; font-weight: 300; }
+
+  @media (max-width: 520px) {
+    .intro, .quote-sec, .paraquien, .months, .details, .invest, .cta, .footer { padding-left: 24px; padding-right: 24px; }
+    .month-text-col { padding: 12px 16px; }
+    .detail-cell { width: 100%; display: block; margin: 0 0 8px; }
+    .cta-heading { font-size: 30px; }
+    .cta-heading em { font-size: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+
+
+  <div class="card">
+
+    <!-- HERO -->
+    <div class="hero">
+      <img src="https://raw.githubusercontent.com/elbazu/raices-sagradas-assets/main/header_registros_akashicos.jpg" alt="Registros Akáshicos y Sanación">
+      <div class="hero-fade"></div>
+    </div>
+
+    <!-- AURORA RIFT — signature element -->
+    <div class="rift">
+      <svg viewBox="0 0 600 48" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <defs>
+          <filter id="blur1">
+            <feGaussianBlur stdDeviation="3"/>
+          </filter>
+          <filter id="blur2">
+            <feGaussianBlur stdDeviation="6"/>
+          </filter>
+          <linearGradient id="rift1" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#e8f7f9" stop-opacity="1"/>
+            <stop offset="20%" stop-color="#007a8a" stop-opacity="0.9"/>
+            <stop offset="50%" stop-color="#6b2fa0" stop-opacity="1"/>
+            <stop offset="80%" stop-color="#007a8a" stop-opacity="0.7"/>
+            <stop offset="100%" stop-color="#e8f7f9" stop-opacity="1"/>
+          </linearGradient>
+          <linearGradient id="rift2" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#e8f7f9" stop-opacity="1"/>
+            <stop offset="30%" stop-color="#6b2fa0" stop-opacity="0.5"/>
+            <stop offset="60%" stop-color="#007a8a" stop-opacity="0.6"/>
+            <stop offset="100%" stop-color="#e8f7f9" stop-opacity="1"/>
+          </linearGradient>
+        </defs>
+        <!-- outer glow -->
+        <path d="M 0 24 Q 150 18 300 24 Q 450 30 600 24" stroke="url(#rift2)" stroke-width="12" fill="none" filter="url(#blur2)" opacity="0.6"/>
+        <!-- mid glow -->
+        <path d="M 0 24 Q 150 20 300 24 Q 450 28 600 24" stroke="url(#rift1)" stroke-width="5" fill="none" filter="url(#blur1)" opacity="0.8"/>
+        <!-- core line -->
+        <path d="M 0 24 Q 150 21 300 24 Q 450 27 600 24" stroke="url(#rift1)" stroke-width="1.5" fill="none" opacity="1"/>
+        <!-- star nodes -->
+        <circle cx="300" cy="24" r="2.5" fill="#0d2d35" opacity="0.9"/>
+        <circle cx="150" cy="21" r="1.5" fill="#007a8a" opacity="0.8"/>
+        <circle cx="450" cy="27" r="1.5" fill="#6b2fa0" opacity="0.8"/>
+        <circle cx="80" cy="23" r="1" fill="#007a8a" opacity="0.5"/>
+        <circle cx="520" cy="25" r="1" fill="#6b2fa0" opacity="0.5"/>
+      </svg>
+    </div>
+
+
+    <!-- INTRO -->
+    <div class="intro">
+      <p class="saludo">Querid@,</p>
+      <p class="body-p">Los Registros Akáshicos son un campo de información del alma donde se encuentran memorias, aprendizajes, contratos, dones, bloqueos, vínculos y potenciales que acompañan el recorrido de una persona a través de sus experiencias de vida.</p>
+      <p class="body-p">Este programa está diseñado para que aprendas a <strong>abrir, leer, interpretar y trabajar</strong> con los Registros desde una mirada profunda, espiritual, terapéutica y práctica — y ayudar a otras personas a conocer su propósito.</p>
+    </div>
+
+    <!-- QUOTE -->
+    <div class="quote-sec">
+      <div class="quote-inner">
+        <p>No se trata solamente de "recibir información", sino de aprender a sostener un espacio sagrado de conexión, claridad y sanación — para ti y para otras personas.</p>
+      </div>
+    </div>
+
+
+    <!-- MONTH RECORDS -->
+    <div class="months">
+      <h2 class="months-title">Contenido Formativo</h2>
+
+      <div class="month-record">
+        <img src="https://raw.githubusercontent.com/elbazu/raices-sagradas-assets/main/card_mes1.jpg" alt="Mes 1">
+        <div class="month-text-col">
+          <span class="month-num">Mes 01</span>
+          <p class="month-title">Fundamentos, Conexión y Apertura del Canal Akáshico</p>
+          <p class="month-desc">Preparación del campo energético, apertura del canal, conexión con Arcángel Metatron y Arcángel Raziel, y primeros registros personales.</p>
+        </div>
+      </div>
+
+      <div class="month-record">
+        <img src="https://raw.githubusercontent.com/elbazu/raices-sagradas-assets/main/card_mes2.jpg" alt="Mes 2">
+        <div class="month-text-col">
+          <span class="month-num">Mes 02</span>
+          <p class="month-title">Lectura de Registros, Guías y Sanación del Alma</p>
+          <p class="month-desc">Lecturas con estructura, preguntas profundas, memorias del alma, contratos, bloqueos y sanación energética desde los Registros.</p>
+        </div>
+      </div>
+
+      <div class="month-record">
+        <img src="https://raw.githubusercontent.com/elbazu/raices-sagradas-assets/main/card_mes3.jpg" alt="Mes 3">
+        <div class="month-text-col">
+          <span class="month-num">Mes 03</span>
+          <p class="month-title">Práctica Profesional, Protocolos y Cierre Energético</p>
+          <p class="month-desc">Sesiones completas, protocolos, casos reales y cierre energético. Desarrollas tu propio estilo como lector de Registros.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- DETAILS -->
+    <div class="details">
+      <span class="eyebrow">Detalles del Programa</span>
+      <div style="font-size:0; margin-top: 4px;">
+        <div class="detail-cell">
+          <span class="dc-label">Duración</span>
+          <span class="dc-val">3 meses · 06 jul – 05 oct 2026</span>
+        </div><!--
+        --><div class="detail-cell" style="margin-right:0;">
+          <span class="dc-label">Modalidad</span>
+          <span class="dc-val">Online vía Zoom</span>
+        </div><!--
+        --><div class="detail-cell">
+          <span class="dc-label">Clases en vivo</span>
+          <span class="dc-val">Lunes · 8–10 pm CDMX</span>
+        </div><!--
+        --><div class="detail-cell" style="margin-right:0;">
+          <span class="dc-label">Activaciones</span>
+          <span class="dc-val">1 domingo al mes · 9 am CDMX</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- INVESTMENT -->
+    <div class="invest">
+      <span class="eyebrow">Inversión energética</span>
+
+      <div class="inv-option">
+        <span class="inv-tag">Pago Mensual</span>
+        <p class="inv-price">$133 USD · $2,200 MXN · S/444</p>
+        <p class="inv-note">por mes, durante 3 meses</p>
+      </div>
+
+      <div class="inv-option featured">
+        <span class="discount-pill">50% descuento en el 3er mes</span>
+        <span class="inv-tag">Pago Completo</span>
+        <p class="inv-price">$333 USD · $5,500 MXN · S/1,111</p>
+        <p class="inv-note">Disponible únicamente antes del inicio del curso</p>
+      </div>
+
+      <p class="payment-methods" style="white-space:nowrap;">PayPal &nbsp;·&nbsp; Transferencia bancaria (México) &nbsp;·&nbsp; Yape / Plin (Perú)</p>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta">
+      <div class="cta-glow-1"></div>
+      <div class="cta-glow-2"></div>
+      <span class="cta-eyebrow">Apertura de inscripciones</span>
+      <h2 class="cta-heading">
+        Reserva tu lugar
+        <em>en el registro</em>
+      </h2>
+      <p class="cta-sub">
+        El proceso comienza el <strong>6 de Julio del 2026</strong>.<br>
+        Los cupos son limitados.
+      </p>
+      <a href="https://wa.me/51923480644" class="cta-btn">Escríbeme por WhatsApp</a>
+      <span class="cta-wa">o directamente al <a href="https://wa.me/51923480644">+51 923 480 644</a></span>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+      <img src="https://raw.githubusercontent.com/elbazu/raices-sagradas-assets/main/rosslogo.png" alt="Rossel Santillán" style="height:48px;width:auto;display:block;margin:0 auto 10px; opacity:1;">
+      <p class="foot-site"><a href="https://rosselsantillan.com">rosselsantillan.com</a></p>
+      <p class="foot-note">
+        Estás recibiendo este mensaje porque formas parte de nuestra comunidad.<br>
+        Este programa es formativo y espiritual; no sustituye atención médica, psicológica o psiquiátrica.
+      </p>
+    </div>
+
+  </div><!-- /card -->
+
+</div><!-- /shell -->
+
+</body>
+</html>
